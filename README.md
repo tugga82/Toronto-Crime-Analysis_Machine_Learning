@@ -21,6 +21,10 @@ The dataset
 
 For this capstone project, Toronto crime data for the past 6 years i.e 2014-2019 is made available and open by the Toronto Police Service public safety data portal. Link to this dataset can be found here: http://data.torontopolice.on.ca/datasets/mci-2014-to-2019/data
 
+The raw data is also saved as an Rdata file in this repository - see filename (capstonedataset.Rdata)
+
+To load the object from the file use load("capstonedataset.Rdata") in R
+
 The techniques proposed
 
 A supervised prediction technique, namely, classification can be utilized to create a predictive model that can accurately predict the category of crimes in Toronto. The techniques will also cover to include pattern identification, prediction, and visualization. 
