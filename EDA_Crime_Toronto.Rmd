@@ -36,8 +36,6 @@ Below are the key insights gleaned from the exploratory analysis conducted on th
 10.Besides assaults, Bay Street Corridor, Church-Yonge Corridor and Waterfront had the most break and enter crimes while West Humber-Clairville had the most vehicle stolen crimes. Assaults, and Break and Enter occur all over the city, with a concentration in the Waterfront areas. Other crimes, such as Auto Theft, have more points on the west side than the east side. Robbery and Theft Over are primarily in the Waterfront areas.
 
 
-## Data Pre-processing
-
 ```{r,include = FALSE}
 library(ggplot2)
 library(gridExtra)
@@ -56,13 +54,6 @@ EDAfilter$occurrencemonth<-factor(EDAfilter$occurrencemonth, levels=c("January",
 EDAfilter$occurrencedayofweek = gsub(" ", "", EDAfilter$occurrencedayofweek)
 EDAfilter$occurrencedayofweek<-factor(EDAfilter$occurrencedayofweek, levels=c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"))
 
-```
-
-### View the Top 5 rows in the dataset
-
-```{r echo = FALSE, results = 'asis'}
-library(knitr)
-kable(EDAfilter[1:5,], caption = "Crime Table Snapshot")
 ```
 
 # 1.Box Plot Crime Distribution
@@ -92,17 +83,16 @@ ggplot(by_date, aes(occurrenceyear, Total, color = occurrenceyear)) + geom_line(
 
 ```{r, results = 'hide'}
 mon.bp <- ggplot(EDAfilter, aes(x = EDAfilter$occurrencemonth, fill=as.factor(EDAfilter$occurrencemonth))) +
-                     geom_bar(width=0.8, stat="count") + theme(legend.position="none") +
-                 ggtitle("Crime Records by Month of Year")
+  geom_bar(width=0.8, stat="count") + theme(legend.position="none") + scale_x_discrete(labels = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)) +
+  ggtitle("Crime Records by Month of Year") + labs(x="Month", y="Total")
 sdom.bp <- ggplot(EDAfilter, aes(x = EDAfilter$occurrenceday, fill=as.factor(EDAfilter$occurrenceday))) +
   geom_bar(width=0.8, stat="count") + theme(legend.position="none") +
-  ggtitle("Crime Records by Day of Month")
+  ggtitle("Crime Records by Day of Month") + labs(x="Day", y="Total")
 shour.bp <- ggplot(EDAfilter, aes(x = EDAfilter$occurrencehour, fill=as.factor(EDAfilter$occurrencehour))) +
   geom_bar(width=0.8, stat="count") + theme(legend.position="none") +
-  ggtitle("Crime Records by Hr")
-dow.bp <- ggplot(EDAfilter, aes(x = EDAfilter$occurrencedayofweek, fill=as.factor(EDAfilter$occurrencedayofweek))) +
-  geom_bar(width=0.8, stat="count") + theme(legend.position="none") +
-  ggtitle("Crime Records by Day of Week")
+  ggtitle("Crime Records by Hr")+ labs(x="Hour", y="Total")
+dow.bp <- ggplot(EDAfilter, aes(x = EDAfilter$occurrencedayofweek, fill=as.factor(EDAfilter$occurrencedayofweek))) + geom_bar(width=0.8, stat="count") + theme(legend.position="none") + scale_x_discrete(labels = c('M', 'T', 'W', 'T', 'F', 'S', 'S')) +
+  ggtitle("Crime Records by Day of Week") + labs(x="Day of Week", y="Total")
 grid.arrange(sdom.bp, shour.bp, mon.bp, dow.bp)
 ```
 
@@ -203,7 +193,7 @@ ggplot(mcimonth, aes(MCI, occurrencemonth, fill = Total)) +
 # 12.Trend MCI by Month
 
 ```{r, results = 'hide'}
-ggplot(mcimonth, aes(as.numeric(occurrencemonth), Total, color = MCI)) + geom_line()
+ggplot(mcimonth, aes(as.integer(occurrencemonth), Total, color = MCI)) + scale_x_continuous(name = "Month ", breaks = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)) + geom_line() + labs(title="MCI Trends by Month",x="Month",y="Total")
 ```
 
 # 13.MCI Heatmap by Day of Week
