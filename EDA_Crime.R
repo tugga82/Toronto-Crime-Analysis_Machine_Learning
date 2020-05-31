@@ -44,17 +44,16 @@ ggplot(by_date, aes(occurrenceyear, Total, color = occurrenceyear)) + geom_line(
 #5.Understand crime trends by month, day, hour, and day of the week and plot them side by side
 # Crime incidents are most during summer and fall (May-October), with frequencies peaking on the first of every month.Crimes are also most around Fridays and weekends. 
 mon.bp <- ggplot(EDAfilter, aes(x = EDAfilter$occurrencemonth, fill=as.factor(EDAfilter$occurrencemonth))) +
-                     geom_bar(width=0.8, stat="count") + theme(legend.position="none") +
-                 ggtitle("Crime Records by Month of Year")
+  geom_bar(width=0.8, stat="count") + theme(legend.position="none") + scale_x_discrete(labels = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)) +
+  ggtitle("Crime Records by Month of Year") + labs(x="Month", y="Total")
 sdom.bp <- ggplot(EDAfilter, aes(x = EDAfilter$occurrenceday, fill=as.factor(EDAfilter$occurrenceday))) +
   geom_bar(width=0.8, stat="count") + theme(legend.position="none") +
-  ggtitle("Crime Records by Day of Month")
+  ggtitle("Crime Records by Day of Month") + labs(x="Day", y="Total")
 shour.bp <- ggplot(EDAfilter, aes(x = EDAfilter$occurrencehour, fill=as.factor(EDAfilter$occurrencehour))) +
   geom_bar(width=0.8, stat="count") + theme(legend.position="none") +
-  ggtitle("Crime Records by Hr")
-dow.bp <- ggplot(EDAfilter, aes(x = EDAfilter$occurrencedayofweek, fill=as.factor(EDAfilter$occurrencedayofweek))) +
-  geom_bar(width=0.8, stat="count") + theme(legend.position="none") +
-  ggtitle("Crime Records by Day of Week")
+  ggtitle("Crime Records by Hr")+ labs(x="Hour", y="Total")
+dow.bp <- ggplot(EDAfilter, aes(x = EDAfilter$occurrencedayofweek, fill=as.factor(EDAfilter$occurrencedayofweek))) + geom_bar(width=0.8, stat="count") + theme(legend.position="none") + scale_x_discrete(labels = c('M', 'T', 'W', 'T', 'F', 'S', 'S')) +
+  ggtitle("Crime Records by Day of Week") + labs(x="Day of Week", y="Total")
 grid.arrange(sdom.bp, shour.bp, mon.bp, dow.bp)
 #6.Crimes by hour and weekday - trends
 #Crime peaks at noon, tapers off and gradually picks up steam to continously progress through evening and late into night.
@@ -113,7 +112,7 @@ ggplot(mcimonth, aes(MCI, occurrencemonth, fill = Total)) +
   geom_text(aes(label=Total), color='white') +
   ggtitle("MCI by Month(2014-2019)")
 #14.Trend MCI by Month
-ggplot(mcimonth, aes(as.numeric(occurrencemonth), Total, color = MCI)) + geom_line()
+ggplot(mcimonth, aes(as.integer(occurrencemonth), Total, color = MCI)) + scale_x_continuous(name = " ", breaks = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)) + geom_line() + labs(title="MCI Trends by Month",x="Month",y="Total")
 #15.MCI Heatmap by Day of Week
 #Assault peak is observed usually on weekends, while other types peak on Fridays.
 mciweek <- EDAfilter %>% group_by(MCI, occurrencedayofweek) %>% dplyr::summarise(Total = n())
