@@ -2,8 +2,8 @@
 title: EDA of Crimes in Toronto - Phase 1 Capstone Project Submission by Vidyasankar
   Sundar
 output:
-  html_document: default
   word_document: default
+  html_document: default
   pdf_document: default
 ---
 
@@ -25,7 +25,7 @@ Below are the key insights gleaned from the exploratory analysis conducted on th
 
 5.All crime types have seen an increasing trend since 2014 with the exception of robbery
 
-6.Most assault incidents happen between May and July,auto theft between July and November while other types are fairly consistent across all months. Maximum number of Assault incidents occur usually on weekends, while other types increasingly occur on Fridays. Assault, Break and Enter, Theftover peaks are observed at both midnight and noon, auto theft at 10PM, and robbery tops at 9PM. 
+6.Most assault incidents happen between May and July, auto theft between July and November while other types are fairly consistent across all months. Maximum number of Assault incidents occur usually on weekends, while other types increasingly occur on Fridays. Assault, Break and Enter, Theftover peaks are observed at both midnight and noon, auto theft at 10PM, and robbery tops at 9PM. 
 
 7.Auto theft happens mostly outside and at houses while other crime types are common across all premise types
 
@@ -84,15 +84,15 @@ ggplot(by_date, aes(occurrenceyear, Total, color = occurrenceyear)) + geom_line(
 ```{r, results = 'hide'}
 mon.bp <- ggplot(EDAfilter, aes(x = EDAfilter$occurrencemonth, fill=as.factor(EDAfilter$occurrencemonth))) +
   geom_bar(width=0.8, stat="count") + theme(legend.position="none") + scale_x_discrete(labels = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)) +
-  ggtitle("Crime Records by Month of Year") + labs(x="Month", y="Total")
+  ggtitle("Crime by Month") + labs(x="Month", y="Total")
 sdom.bp <- ggplot(EDAfilter, aes(x = EDAfilter$occurrenceday, fill=as.factor(EDAfilter$occurrenceday))) +
   geom_bar(width=0.8, stat="count") + theme(legend.position="none") +
-  ggtitle("Crime Records by Day of Month") + labs(x="Day", y="Total")
+  ggtitle("Crime by Day") + labs(x="Day", y="Total")
 shour.bp <- ggplot(EDAfilter, aes(x = EDAfilter$occurrencehour, fill=as.factor(EDAfilter$occurrencehour))) +
   geom_bar(width=0.8, stat="count") + theme(legend.position="none") +
-  ggtitle("Crime Records by Hr")+ labs(x="Hour", y="Total")
+  ggtitle("Crime by Hr")+ labs(x="Hour", y="Total")
 dow.bp <- ggplot(EDAfilter, aes(x = EDAfilter$occurrencedayofweek, fill=as.factor(EDAfilter$occurrencedayofweek))) + geom_bar(width=0.8, stat="count") + theme(legend.position="none") + scale_x_discrete(labels = c('M', 'T', 'W', 'T', 'F', 'S', 'S')) +
-  ggtitle("Crime Records by Day of Week") + labs(x="Day of Week", y="Total")
+  ggtitle("Crime by Day of Week") + labs(x="Day of Week", y="Total")
 grid.arrange(sdom.bp, shour.bp, mon.bp, dow.bp)
 ```
 
@@ -105,7 +105,7 @@ ggplot(EDAfilter)+
   aes(x=EDAfilter$occurrencehour, colour=EDAfilter$occurrencedayofweek)+
   geom_line(stat="count")+
   scale_x_continuous(breaks = seq(0,23,1),limit=c(0,23))+
-  scale_y_continuous(breaks = seq(400,3000,250),limit=c(200,2500))+
+  scale_y_continuous(breaks = seq(400,3000,250),limit=c(200,2500))+theme(legend.position = "top")+
   labs(title="Crimes by Hour and Weekday",x="Hour",y="Number of Incidents")
 ```
 
@@ -116,8 +116,8 @@ ggplot(EDAfilter)+
 ```{r, results = 'hide'}
 crime_heatmap <- EDAfilter %>% group_by(occurrencemonth, occurrenceday) %>% dplyr::summarise(Total = n())
 ggplot(crime_heatmap, aes(occurrencemonth, occurrenceday, fill = Total)) +
-  geom_tile(size = 1, color = "white") +
-  scale_fill_viridis()  +
+  geom_tile(size = 1, height = 1, color = "white") +
+  scale_fill_viridis()  + scale_x_discrete (labels=c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)) +
   geom_text(aes(label=Total), color='white') +
   ggtitle("Crimes by Month and Day(2014-2019)")
 ```
@@ -129,8 +129,8 @@ ggplot(crime_heatmap, aes(occurrencemonth, occurrenceday, fill = Total)) +
 ```{r, results = 'hide'}
 hour_heatmap <- EDAfilter %>% group_by(occurrencedayofweek, occurrencehour) %>% dplyr::summarise(Total = n())
 ggplot(hour_heatmap, aes(occurrencedayofweek, occurrencehour, fill = Total)) +
-  geom_tile(size = 1, color = "white") +
-  scale_fill_viridis()  +
+  geom_tile(size = 1, width = 1, height = 1, color = "white") +
+  scale_fill_viridis()  + scale_x_discrete(labels = c('M', 'T', 'W', 'T', 'F', 'S', 'S')) +
   geom_text(aes(label=Total), color='white') +
   ggtitle("Crimes by Day and Hour(2014-2019)")
 ```
@@ -172,8 +172,8 @@ ggplot(mciyear, aes(occurrenceyear, Total, color = MCI)) + geom_line()
 
 ```{r, results = 'hide'}
 ggplot(mciyear, aes(MCI, occurrenceyear, fill = Total)) +
-  geom_tile(size = 1, color = "white") +
-  scale_fill_viridis()  +
+  geom_tile(size = 1, height = 1, color = "white") +
+  scale_fill_viridis()  + scale_x_discrete(labels = c('Assault', 'AutoTheft', 'B&E', 'Robbery', 'TheftOver')) +
   geom_text(aes(label=Total), color='white') +
   ggtitle("MCI by Year(2014-2019)")
 ```
@@ -185,8 +185,8 @@ ggplot(mciyear, aes(MCI, occurrenceyear, fill = Total)) +
 ```{r, results = 'hide'}
 mcimonth<-EDAfilter %>% group_by(MCI,occurrencemonth) %>% dplyr::summarise(Total = n())
 ggplot(mcimonth, aes(MCI, occurrencemonth, fill = Total)) +
-  geom_tile(size = 1, color = "white") +
-  scale_fill_viridis()  +
+  geom_tile(size = 1, height = 1, color = "white") +
+  scale_fill_viridis()  + scale_x_discrete(labels = c('Assault', 'AutoTheft', 'B&E', 'Robbery', 'TheftOver')) +
   geom_text(aes(label=Total), color='white') +
   ggtitle("MCI by Month(2014-2019)")
 ```
@@ -204,8 +204,8 @@ ggplot(mcimonth, aes(as.integer(occurrencemonth), Total, color = MCI)) + scale_x
 ```{r, results = 'hide'}
 mciweek <- EDAfilter %>% group_by(MCI, occurrencedayofweek) %>% dplyr::summarise(Total = n())
 ggplot(mciweek, aes(MCI, occurrencedayofweek, fill = Total)) +
-  geom_tile(size = 1, color = "white") +
-  scale_fill_viridis()  +
+  geom_tile(size = 1, height = 1, color = "white") +
+  scale_fill_viridis()  + scale_x_discrete(labels = c('Assault', 'AutoTheft', 'B&E', 'Robbery', 'TheftOver')) +
   geom_text(aes(label=Total), color='white') +
   ggtitle("MCI by Weekday(2014-2019)")
 ```
@@ -216,7 +216,7 @@ ggplot(mciweek, aes(MCI, occurrencedayofweek, fill = Total)) +
 mciday <- EDAfilter %>% group_by(MCI, occurrenceday) %>% dplyr::summarise(Total = n())
 ggplot(mciday, aes(MCI, occurrenceday, fill = Total)) +
   geom_tile(size = 1, color = "white") +
-  scale_fill_viridis()  +
+  scale_fill_viridis()  + scale_x_discrete(labels = c('Assault', 'AutoTheft', 'B&E', 'Robbery', 'TheftOver')) +
   geom_text(aes(label=Total), color='white') +
   ggtitle("MCI by Day(2014-2019)")
 ```
@@ -229,8 +229,8 @@ ggplot(mciday, aes(MCI, occurrenceday, fill = Total)) +
 ```{r, results = 'hide'}
 mcihour <- EDAfilter %>% group_by(MCI, occurrencehour) %>% dplyr::summarise(Total = n())
 ggplot(mcihour, aes(MCI, occurrencehour, fill = Total)) +
-  geom_tile(size = 1, color = "white") +
-  scale_fill_viridis()  +
+  geom_tile(size = 1, height = 1, color = "white") +
+  scale_fill_viridis()  + scale_x_discrete(labels = c('Assault', 'AutoTheft', 'B&E', 'Robbery', 'TheftOver')) +
   geom_text(aes(label=Total), color='white') +
   ggtitle("MCI by Hour(2014-2019)")
 ```
@@ -274,7 +274,7 @@ dfhood<-df %>% group_by(Neighbourhood) %>% dplyr::summarise(Total = n()) %>% dpl
 ggplot(dfhood,aes(reorder(Neighbourhood,Total), Total))+
   geom_col(fill = "navy")+
   coord_flip()+
-  ggtitle("Top 20 Neighbourhoods for Crime") +
+  ggtitle("Top 20 Neighbourhoods") +
   labs(x = NULL, y = NULL)
 ```
 
@@ -287,7 +287,7 @@ dfsafe<-df %>% group_by(Neighbourhood) %>% dplyr::summarise(Total = n()) %>% dpl
 ggplot(dfsafe,aes(reorder(Neighbourhood,Total), Total))+
   geom_col(fill = "navy")+
   coord_flip()+
-  ggtitle("Top 20 Safe Neighbourhoods in Toronto")+
+  ggtitle("Top 20 Safe Neighbourhoods")+
   labs(x = NULL, y = NULL)
 ```
 
@@ -301,8 +301,8 @@ ggplot(dfmci, aes(reorder(Neighbourhood,Total),Total,fill=MCI))+
   geom_bar(stat="identity")+
   coord_flip()+
   xlab("Neighbourhood") +
-  ylab("Crime Count")+
-  theme_minimal()
+  ylab("Crime Count") + theme(legend.position = c(0.8, 0.2))
+ 
 ```
 
 # 21.Map of Toronto's crimes, simple visualization
@@ -322,14 +322,14 @@ ggmap(my_map) +
              size = 0.5, alpha = 0.03) +
   xlab('Longitude') +
   ylab('Latitude') +
-  ggtitle('Location of Major Crime Indicators Toronto 2014-2019') +
+  ggtitle('Location of MCI Toronto 2014-2019') +
   guides(color=FALSE)
 ggmap(my_map) +
   geom_point(data=to_map, aes(x = lon, y = lat, color = "#27AE60"),
              size = 0.5, alpha = 0.05) +
   xlab('Longitude') +
   ylab('Latitude') +
-  ggtitle('Location of Major Crime Indicators Toronto 2014-2019') +
+  ggtitle('Location of MCI Toronto 2014-2019') +
   guides(color=FALSE) +
   facet_wrap(~ crimes, nrow = 2)
 ```
