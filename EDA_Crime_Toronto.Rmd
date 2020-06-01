@@ -15,7 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Below are the key insights gleaned from the exploratory analysis conducted on the toronto open dataset containing the crimes that occurred between 2014 and 2019.The supporting R code and graphs are presented following the findings
 
-1.In Toronto, the average number of crime incidents is 31179 per year, 2647 per month, and 86 per day. Overall, crime has seen an increasing trend since 2014.
+1.In Toronto, the average number of crime incidents is 33685 per year, 2852 per month, and 92 per day. Overall, crime has seen an increasing trend since 2014.
 
 2.Crime occurs the most during summer and fall (May-October). The first and the last week of any month is seen to have the most incidents. Notably, the peak observed is on the first day of every month. During weekdays, peak crime is observed at noon and then starts to gradually build from 3PM onwards and steadily increases into the night. During weekends, peak is observed at midnight. In addition, there are more crimes on Fridays and weekends than any other day in the week. 
 
@@ -25,13 +25,13 @@ Below are the key insights gleaned from the exploratory analysis conducted on th
 
 5.All crime types have seen an increasing trend since 2014 with the exception of robbery
 
-6.Most assault incidents happen between May and August,auto theft between July and November while other types are fairly consistent across all months. Maximum number of Assault incidents occur usually on weekends, while other types increasingly occur on Fridays. Assault, Break and Enter, Theftover peaks are observed at both midnight and noon, auto theft at 10PM, and robbery tops at 9PM. 
+6.Most assault incidents happen between May and July,auto theft between July and November while other types are fairly consistent across all months. Maximum number of Assault incidents occur usually on weekends, while other types increasingly occur on Fridays. Assault, Break and Enter, Theftover peaks are observed at both midnight and noon, auto theft at 10PM, and robbery tops at 9PM. 
 
 7.Auto theft happens mostly outside and at houses while other crime types are common across all premise types
 
 8.Top offences within the assault category include - assault with weapon, bodily harm, and assault peace officer while top offences within robbery include - mugging, other, robbery with weapons, and robbery-business.
 
-9.The most dangerous neighbourhood is the Waterfront. The other two most dangerous hoods are the Bay Street Corridor and Yonge-Church Corridor. The most safest hoods are Lambton Baby Point, Woodbine-Lumsden, and Guildwood
+9.The most dangerous neighbourhood is the Waterfront. The other two most dangerous hoods are the Bay Street Corridor and Yonge-Church Corridor. The most safest hoods are Lambton Baby Point, Woodbine-Lumsden, Maple Leaf, and Guildwood
 
 10.Besides assaults, Bay Street Corridor, Church-Yonge Corridor and Waterfront had the most break and enter crimes while West Humber-Clairville had the most vehicle stolen crimes. Assaults, and Break and Enter occur all over the city, with a concentration in the Waterfront areas. Other crimes, such as Auto Theft, have more points on the west side than the east side. Robbery and Theft Over are primarily in the Waterfront areas.
 
@@ -48,7 +48,7 @@ library(maps)
 EDA<-read.csv("/Users/tugga/Downloads/MCI_2014_to_2019.csv", header = TRUE)
 EDA<-subset(EDA, select = -c(1,3,4,6,7,9:14,22,23,27))
 EDA_uniq<-unique(EDA)
-EDANEW<-na.omit(EDA_uniq)
+EDANEW<-na.omit(EDA)
 EDAfilter<-filter(EDANEW, occurrenceyear == 2014 | occurrenceyear == 2015 | occurrenceyear == 2016 | occurrenceyear == 2017 | occurrenceyear == 2018 | occurrenceyear == 2019)
 EDAfilter$occurrencemonth<-factor(EDAfilter$occurrencemonth, levels=c("January","February","March","April","May", "June", "July", "August", "September", "October", "November", "December"))
 EDAfilter$occurrencedayofweek = gsub(" ", "", EDAfilter$occurrencedayofweek)
@@ -58,7 +58,7 @@ EDAfilter$occurrencedayofweek<-factor(EDAfilter$occurrencedayofweek, levels=c("M
 
 # 1.Box Plot Crime Distribution
 
-**In Toronto, the average number of crime incidents is 31179 per year, 2647 per month, and 86 per day.**
+**In Toronto, the average number of crime incidents is 33685 per year, 2852 per month, and 92 per day.**
 
 ```{r, `results = false`}
 by_date <- EDAfilter %>% group_by(occurrenceyear) %>% dplyr::summarise(Total = n())
@@ -142,7 +142,8 @@ ggplot(hour_heatmap, aes(occurrencedayofweek, occurrencehour, fill = Total)) +
 ```{r, results = 'hide'}
 ggplot(EDAfilter, aes(x = EDAfilter$premisetype, fill=as.factor(EDAfilter$premisetype))) +
   geom_bar(width=0.8, stat="count") + theme(legend.position="none") +
-  ggtitle("Crime Records by Premise Type")
+  ggtitle("Crime Records by Premise Type") + xlab("Premise Type") +  
+  ylab("Total Crimes")
 ```
 
 # 8.Major Crime Incident Categories
@@ -179,7 +180,7 @@ ggplot(mciyear, aes(MCI, occurrenceyear, fill = Total)) +
 
 # 11.MCI Heatmap by Month
 
-**Most assault incidents happen between May and August,autotheft between July and November while other types are fairly consistent across all months.**
+**Most assault incidents happen between May and July,autotheft between July and November while other types are fairly consistent across all months.**
 
 ```{r, results = 'hide'}
 mcimonth<-EDAfilter %>% group_by(MCI,occurrencemonth) %>% dplyr::summarise(Total = n())
@@ -279,7 +280,7 @@ ggplot(dfhood,aes(reorder(Neighbourhood,Total), Total))+
 
 # 19.Top 20 Safe Neighbourhoods in Toronto
 
-**The most safest hoods are Lambton Baby Point, Woodbine-Lumsden, and Guildwood.**
+**The most safest hoods are Lambton Baby Point, Woodbine-Lumsden, Maple Leaf, and Guildwood.**
 
 ```{r, results = 'hide'}
 dfsafe<-df %>% group_by(Neighbourhood) %>% dplyr::summarise(Total = n()) %>% dplyr::top_n(-20) %>% dplyr::arrange(desc(Total))
