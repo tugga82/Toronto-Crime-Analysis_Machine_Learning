@@ -25,6 +25,8 @@ The raw data is also saved as an Rdata file in this repository - see filename (c
 
 To load the object from the file use load("capstonedataset.Rdata") in R
 
+The Major Crime Indicators categories are Assault, Break and Enter,  Auto Theft, Robbery and Theft Over (Excludes Homicides and Sexual Assaults).
+
 The techniques proposed
 
 A supervised prediction technique, namely, classification can be utilized to create a predictive model that can accurately predict the category of crimes in Toronto. The techniques will also cover to include pattern identification, prediction, and visualization. 
