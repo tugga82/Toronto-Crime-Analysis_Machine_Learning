@@ -29,5 +29,5 @@ The Major Crime Indicators categories are Assault, Break and Enter,  Auto Theft,
 
 The techniques proposed
 
-A supervised prediction technique, namely, classification can be utilized to create a predictive model that can accurately predict the category of crimes in Toronto. The techniques will also cover to include pattern identification, prediction, and visualization. 
+A supervised prediction technique, namely, classification can be utilized to create a predictive model that can accurately predict the category of crimes in Toronto. The techniques will also cover to include pattern identification, prediction, and visualization. In addition, we shall also compare other algorithms such as KNN Classifier, Naive Bayes and Random Forest to understand how these perform when it comes to predicting crimes in Toronto.
 
