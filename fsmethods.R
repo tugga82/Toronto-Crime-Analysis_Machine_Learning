@@ -1,3 +1,4 @@
+#Feature Selection using information gain
 library(FSelector)
 set.seed(456)
 #Using information gain filter on all the variables in the dataset did not provide appropriate variables for the model. Therefore, manually drop the variables that are not appropriate or relevant and then run the information gain to identify attributes that are important.  
