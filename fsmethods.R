@@ -1,7 +1,9 @@
 #Feature Selection using information gain
 library(FSelector)
 set.seed(456)
-#Using information gain filter on all the variables in the dataset did not provide appropriate variables for the model. Therefore, manually drop the variables that are not appropriate or relevant and then run the information gain to identify attributes that are important.  
+#Using information gain filter on all the variables in the dataset did not provide appropriate variables for the model. Therefore, manually drop the variables that are not appropriate or relevant and then run the information gain to identify attributes that are important.
+#Dataframe contains 27 variables. Drop the variables (14) that are not meaningful. This includes the following
+#Index, event unique id, occurrence date and reported date in unix formats,ucr_code, ucr_ext, offence, reported year, month, day, day of year, day of week, hour, and objectid.
 ind1<-sample(2, nrow(EDAfilter), replace = TRUE, prob=c(0.7,0.3))
 featureselect<-EDAfilter[ind1 == 1,]
 fstest<-EDAfilter[ind1 == 2,]
