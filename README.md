@@ -38,26 +38,28 @@ The techniques proposed
 A supervised prediction technique, namely, classification can be utilized to create a predictive model that can accurately predict the category of crimes in Toronto. The techniques will also cover to include pattern identification, prediction, and visualization. In addition, we shall also compare other algorithms such as KNN Classifier, Naive Bayes and Random Forest to understand how these perform when it comes to predicting crimes in Toronto.
 
 Some notes about the files in this repository:
-1.Filename EDA_Crime.R (Contains source code to perform exploratory data analysis)
+Filename EDA_Crime.R (Contains source code to perform exploratory data analysis)
 
-2.Filename EDA_Crime_Toronto.Rmd (Contains the RMarkDown - provides the code and the insights and can be used to generate the exploratory data analysis report in various formats - see 3 to 5)
+Filename EDA_Crime_Toronto.Rmd (Contains the RMarkDown - provides the code and the insights and can be used to generate the exploratory data analysis report in various formats - see 3 to 5)
 
-3.Filename EDA_Crime_Toronto.docx (Contains the Exploratory data analysis report exported in word format)
+Filename EDA_Crime_Toronto.docx (Contains the Exploratory data analysis report exported in word format)
 
-4.Filename EDA_Crime_Toronto.html (Contains the Exploratory data analysis report exported as a html output)
+Filename EDA_Crime_Toronto.html (Contains the Exploratory data analysis report exported as a html output)
 
-5.Filename EDA_Crime_Toronto.PDF (Contains the Exploratory data analysis report exported in PDF format)
+Filename EDA_Crime_Toronto.PDF (Contains the Exploratory data analysis report exported in PDF format)
 
-6.Filename EDAdrop.Rdata - contains the dataset further to manually eliminating irrelevant variables from the dataset. Dropped the variables (14) that are not meaningful. This includes the following #Index, event unique id, occurrence date and reported date in unix formats,ucr_code, ucr_ext, offence, reported year, month, day, day of year, day of week, hour, and objectid.This file was subsequently used for featureselection to identify key variables for training models. 
+Filename Exploratory Analysis Results No Code.PDF(Contains the results of the exploratory work with no code embedded in the document)
 
-7.Filename EDAfilter.Rdata - contains the crimedataset exported from the open data provided by the Toronto Police Service.
+Filename EDAdrop.Rdata - contains the dataset further to manually eliminating irrelevant variables from the dataset. Dropped the variables (14) that are not meaningful. This includes the following #Index, event unique id, occurrence date and reported date in unix formats,ucr_code, ucr_ext, offence, reported year, month, day, day of year, day of week, hour, and objectid.This file was subsequently used for featureselection to identify key variables for training models. 
 
-8.Filename MCI_Metadata.csv - details of various variables as provided by the Toronto Police Service
+Filename EDAfilter.Rdata - contains the crimedataset exported from the open data provided by the Toronto Police Service.
 
-9.Filename MCI_Shooting_Glossary.pdf - description of crime categories as provided by the Toronto Police Service
+Filename MCI_Metadata.csv - details of various variables as provided by the Toronto Police Service
 
-10.Filename fsmethods.R - contains the R source code to run information gain - a filter based feature selection method to extract the variables that are important for model building
+Filename MCI_Shooting_Glossary.pdf - description of crime categories as provided by the Toronto Police Service
 
-11.Filename modelsfinal.R - contains the R source code to train/test models to predict crime categories in Toronto
+Filename fsmethods.R - contains the R source code to run information gain - a filter based feature selection method to extract the variables that are important for model building
+
+Filename modelsfinal.R - contains the R source code to train/test models to predict crime categories in Toronto
 
 
