@@ -23,7 +23,10 @@ EDAfilter<-filter(EDANEW, occurrenceyear == 2014 | occurrenceyear == 2015 | occu
 EDAfilter$occurrencemonth<-factor(EDAfilter$occurrencemonth, levels=c("January","February","March","April","May", "June", "July", "August", "September", "October", "November", "December"))
 EDAfilter$occurrencedayofweek = gsub(" ", "", EDAfilter$occurrencedayofweek)
 EDAfilter$occurrencedayofweek<-factor(EDAfilter$occurrencedayofweek, levels=c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"))
-
+EDAfilter$Neighbourhood<-as.factor(EDAfilter$Neighbourhood)
+EDAfilter$premisetype<-as.factor(EDAfilter$premisetype)
+EDAfilter$MCI<-as.factor(EDAfilter$MCI)
+EDAfilter$Division<-as.factor(EDAfilter$Division)
 #Group crimes by year
 by_date <- EDAfilter %>% group_by(occurrenceyear) %>% dplyr::summarise(Total = n())
 #1.Boxplot to see the distribution of crimes per year
