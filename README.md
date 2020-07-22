@@ -38,6 +38,8 @@ The techniques proposed
 A supervised prediction technique, namely, classification can be utilized to create a predictive model that can accurately predict the category of crimes in Toronto. The techniques will also cover to include pattern identification, prediction, and visualization. In addition, we shall also compare other algorithms such as KNN Classifier, Naive Bayes and Random Forest to understand how these perform when it comes to predicting crimes in Toronto.
 
 Some notes about the files in this repository:
+CKME136-Vidyasankar_Sundar_Capstone2020_Final_Report.PDF (Contains the Final Project Report)
+
 Filename EDA_Crime.R (Contains source code to perform exploratory data analysis)
 
 Filename EDA_Crime_Toronto.Rmd (Contains the RMarkDown - provides the code and the insights and can be used to generate the exploratory data analysis report in various formats - see 3 to 5)
